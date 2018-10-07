@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  score: 1
+  available: false
+  start_date: 2018-10-07 03:08:44
+  end_date: 2018-10-07 03:08:44
+
+two:
+  name: MyString
+  description: MyText
+  score: 1
+  available: false
+  start_date: 2018-10-07 03:08:44
+  end_date: 2018-10-07 03:08:44
