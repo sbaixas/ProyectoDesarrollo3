@@ -12,8 +12,15 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   def activate
     email = params[:email]
     user = User.find_by_email(email)
+    if(user.nil?)
+      render json:{status:400,message: "Usuario inexistente"}, status: :not_found
+      return
+    elsif user.active?
+      render json:{status:400,message: "Usuario ya activado"}, status: :not_found
+      return
+    end
     rand_password = User.random_string(10)
-    user.update(password:rand_password)
+    user.update(password:rand_password,active:true)
     UserMailer .with(user:user,password:rand_password).activation_email.deliver_now
     render json:{status:200}, status: :ok
   end
