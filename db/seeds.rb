@@ -10,3 +10,13 @@ categories = [{name:"musica"},
               {name:"moda"}]
 
 Category.create(categories)
+
+careers = [{name:"Ingenieria Civil"},
+              {name:"Enfermeria"},
+              {name:"Odontologia"}]
+
+Career.create(careers)
+
+users = [{email:"sbaixas@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Sebastian", last_name:"Baixas", age: 27, gender: true, active: true, accumulated_score: 0, career_id: 1}]
+
+User.create(users)
