@@ -7,12 +7,16 @@ class InterestCategoriesController < ApplicationController
   def update
     interest_categories = params[:interest_categories]
     categories = Category.where(id:interest_categories)
-    current_user.update(categories:categories)
+
+    puts categories
+    current_user.categories=categories
+    render json:{ }
   end
 
   def show
     interest_categories = current_user.categories
     categories = Category.all.collect{|r| Hash({'id'=>r.id,'name'=>r.name,'selected'=>if interest_categories.include?r then true else false end })}
+    puts categories
     render json:{categories:categories}
   end
 end

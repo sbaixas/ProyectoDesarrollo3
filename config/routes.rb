@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
   post 'app_calls/get_surveys'
   post "/interest_categories/edit", :to =>"interest_categories#update", as:'edit_interest_categories'
-  get "/interest_categories/show", :to =>"interest_categories#show", as:'show_interest_categories'
+  get "/interest_categories/", :to =>"interest_categories#show", as:'show_interest_categories'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
