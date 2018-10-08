@@ -1,0 +1,2 @@
+module AppCallsHelper
+end

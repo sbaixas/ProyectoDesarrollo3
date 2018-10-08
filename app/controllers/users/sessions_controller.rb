@@ -5,13 +5,13 @@ class Users::SessionsController < Devise::SessionsController
   prepend_before_action :require_no_authentication, only: :cancel
   skip_before_action :verify_authenticity_token
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def new
+    super
+  end
 
   # POST /resource/sign_in
   # def create
-  #   super
+  #  super
   # end
 
   # DELETE /resource/sign_out
@@ -20,7 +20,6 @@ class Users::SessionsController < Devise::SessionsController
   # end
   def create
   respond_to do |format|
-    format.html {super}
     format.json {
       user_email=params[:email]
       password=params[:password]
@@ -28,11 +27,12 @@ class Users::SessionsController < Devise::SessionsController
       if(!user)
         render :json => {status:401},status: :unauthorized
       elsif user.valid_password?(password)
-        render :json =>{Authorization:user.auth_token}, status: :ok
+        render :json =>{Authorization:user.auth_token,status:200}, status: :ok
       else
         render :json =>{status:401}, status: :unauthorized
       end
     }
+    format.html {super}
 
   end
 
