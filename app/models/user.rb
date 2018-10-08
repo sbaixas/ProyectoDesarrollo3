@@ -16,4 +16,24 @@ class User < ApplicationRecord
   has_many :prizes, :through => :user_prizes, source: :prize 
   has_many :categories, :through => :user_categories, source: :category 
   belongs_to :career
+
+  before_create :set_access_token
+  def self.random_string(len)
+    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+    newpass = ""
+    1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
+    return newpass
+  end
+
+  private
+  def set_access_token
+    self.auth_token = generate_token
+  end
+
+  def generate_token
+    loop do
+      token = SecureRandom.hex(10)
+      break token unless User.where(auth_token:token).exists?
+    end
+  end
 end
