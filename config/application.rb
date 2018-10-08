@@ -15,8 +15,8 @@ module Example
         :address              => "smtp.gmail.com",
         :port                 => 587,
         :domain               => "gmail.com",
-        :user_name            => "jvejar1@miuandes.cl",
-        :password             => "tebito123",
+        :user_name            => "encuestadospremiados@gmail.com",
+        :password             => "encuestadospremiadosencuestadospremiados",
         :authentication       => "plain",
         :enable_starttls_auto => true
     }
