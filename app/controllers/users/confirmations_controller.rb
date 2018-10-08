@@ -13,10 +13,10 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     email = params[:email]
     user = User.find_by_email(email)
     if(user.nil?)
-      render json:{status:400,message: "Usuario inexistente"}, status: :not_found
+      render json:{status:400,message: "Usuario inexistente"}
       return
     elsif user.active?
-      render json:{status:400,message: "Usuario ya activado"}, status: :not_found
+      render json:{status:400,message: "Usuario ya activado"}
       return
     end
     rand_password = User.random_string(10)
