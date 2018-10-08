@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'home/index'
+  root to: 'home#index'
   get 'interesting_categories/edit'
   devise_for :users, :controllers => { registrations: 'users/registrations', sessions:'users/sessions'}
   devise_scope :user do
