@@ -19,7 +19,7 @@ careers = [{name:"Ingenieria Civil"},
 
 Career.create(careers)
 
-users_data = [{email:"sbaixas@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Sebastian", last_name:"Baixas", birthdate: DateTime.new(1991,8,27), rut:"180182535", gender: true, active: true, accumulated_score: 0, career_id: 1}]
+users_data = [{email:"sbaixas@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Sebastian", last_name:"Baixas", birthdate: DateTime.new(1991,8,27), rut:"180182535", gender: "male", active: true, accumulated_score: 0, career_id: 1}]
 
 users = User.create(users_data)
 

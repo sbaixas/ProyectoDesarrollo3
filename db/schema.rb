@@ -201,7 +201,7 @@ ActiveRecord::Schema.define(version: 2018_10_08_015007) do
     t.string "first_name"
     t.string "last_name"
     t.datetime "birthdate"
-    t.boolean "gender"
+    t.string "gender"
     t.string "rut"
     t.boolean "active"
     t.integer "accumulated_score"
