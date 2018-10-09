@@ -1,6 +1,6 @@
 class InterestCategoriesController < ApplicationController
-  #before_action :authenticate_token
-  #skip_before_action :verify_authenticity_token
+  before_action :authenticate_token
+  skip_before_action :verify_authenticity_token
 
   def edit
   end
