@@ -11,7 +11,7 @@ categories_data = [{name:"musica"},
               {name:"arte"},
               {name:"moda"}]
 
-categories = Category.create(categories)
+categories = Category.create(categories_data)
 
 groups_data = [{tag: "Grupo Generico 1"},
 		  {tag: "Grupo Generico 2"},
@@ -25,9 +25,16 @@ careers = [{name:"Ingenieria Civil"},
 
 Career.create(careers)
 
-users_data = [{email:"sbaixas@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Sebastian", last_name:"Baixas", birthdate: DateTime.new(1991,8,27), rut:"180182535", gender: "male", active: true, accumulated_score: 120, career_id: 1}]
+users_data = [{email:"sbaixas@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Sebastian", last_name:"Baixas", birthdate: DateTime.new(1991,8,27), rut:"180182535", gender: "male", active: true, accumulated_score: 120, career_id: 1},
+			  {email:"adaldunate@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Angeles", last_name:"Aldunate", birthdate: DateTime.new(1993,11,29), rut:"186370430", gender: "female", active: false, accumulated_score: 0, career_id: 1}]
 
 users = User.create(users_data)
+
+UserGroup.create(user:users[0], group:groups[0])
+UserGroup.create(user:users[0], group:groups[2])
+
+
+UserCategory.create(user:users[0], category: categories[0])
 
 surveys_data = {name:"Encuesta Generica", description:"Texto que describe de manera detallada la encuesta generica, deberia ser mas o menos largo.", score: 120, start_date: DateTime.new(2018,10,5), end_date: DateTime.new(2018,10,20), max_answers: 100, min_answers: 15}
 
@@ -52,5 +59,5 @@ multiple14 = MultipleAlternative.create(multiple_question: multiple_question1, c
 Prize.create(name:"Premio", description:"Premio generico por sorteo, descripcion relativamente larga", available: true, start_date: DateTime.new(2018,10,8), end_date: DateTime.new(2018,11,11))
 
 
-SurveyState.create(user: users[0], survey: survey1, state: 'Not Delivered')
-
+#SurveyState.create(user: users[0], survey: survey1, state: 'Not Delivered')
+Filter.create(survey: survey1, query: "users.gender = 'male' AND categories.name = 'musica'")

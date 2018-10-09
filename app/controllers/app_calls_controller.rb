@@ -83,9 +83,9 @@ class AppCallsController < ApplicationController
 	end
 
 	def post_survey
-		open_responses = JSON.parse params['open_responses']
-		alternative_responses = JSON.parse params['alternative_responses']
-		multiple_responses = JSON.parse params['multiple_responses']
+		open_responses =  params['open_responses']
+		alternative_responses =  params['alternative_responses']
+		multiple_responses = params['multiple_responses']
 
 		survey = nil
 		open_responses.each do |ores|
