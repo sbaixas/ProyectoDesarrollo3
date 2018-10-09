@@ -7,11 +7,17 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'date'
 
-categories = [{name:"musica"},
+categories_data = [{name:"musica"}, 
               {name:"arte"},
               {name:"moda"}]
 
-Category.create(categories)
+categories = Category.create(categories)
+
+groups_data = [{name: "Grupo Generico 1"},
+		  {name: "Grupo Generico 2"},
+		  {name: "Grupo Generico 3"}]
+
+groups = Group.create(group)
 
 careers = [{name:"Ingenieria Civil"},
               {name:"Enfermeria"},
@@ -19,7 +25,7 @@ careers = [{name:"Ingenieria Civil"},
 
 Career.create(careers)
 
-users_data = [{email:"sbaixas@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Sebastian", last_name:"Baixas", birthdate: DateTime.new(1991,8,27), rut:"180182535", gender: "male", active: true, accumulated_score: 0, career_id: 1}]
+users_data = [{email:"sbaixas@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Sebastian", last_name:"Baixas", birthdate: DateTime.new(1991,8,27), rut:"180182535", gender: "male", active: true, accumulated_score: 120, career_id: 1}]
 
 users = User.create(users_data)
 
@@ -42,6 +48,8 @@ multiple11 = MultipleAlternative.create(multiple_question: multiple_question1, c
 multiple12 = MultipleAlternative.create(multiple_question: multiple_question1, content: "Contenido en texto de la alternativa 2.")
 multiple13 = MultipleAlternative.create(multiple_question: multiple_question1, content: "Contenido en texto de la alternativa 3.")
 multiple14 = MultipleAlternative.create(multiple_question: multiple_question1, content: "Contenido en texto de la alternativa 4.")
+
+Prize.create(name:"Premio", description:"Premio generico por sorteo, descripcion relativamente larga", available: true, start_date: DateTime.new(2018,10,8), end_date: DateTime.new(2018,11,11))
 
 
 SurveyState.create(user: users[0], survey: survey1, state: 'Not Delivered')

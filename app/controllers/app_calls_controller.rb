@@ -12,10 +12,10 @@ class AppCallsController < ApplicationController
 			  	survey["OpenQuestions"] = []
 			  	survey["AlternativeQuestions"] = []
 			  	survey["MultipleQuestions"] = []
-			  	sur.open_questions.each do |oq|
+			  	sur.survey.open_questions.each do |oq|
 			  		survey["OpenQuestions"].push(oq.as_json)
 			  	end
-			  	sur.alternative_questions.each do |aq|
+			  	sur.survey.alternative_questions.each do |aq|
 			  		alternative_questions = aq.as_json
 			  		alternative_questions["Alternatives"] = []
 			  		aq.alternatives.each do |a|
@@ -23,7 +23,7 @@ class AppCallsController < ApplicationController
 			  		end
 			  		survey["AlternativeQuestions"].push(alternative_questions)
 			  	end
-			  	sur.multiple_questions.each do |mq|
+			  	sur.survey.multiple_questions.each do |mq|
 			  		multiple_questions = mq.as_json
 			  		multiple_questions["MultipleAlternatives"] = []
 			  		mq.multiple_alternatives.each do |ma|
@@ -41,7 +41,44 @@ class AppCallsController < ApplicationController
 
 	def get_profile_info
 		respond_to do |format|
-			format.json{ render json: {"status" => "Success", "profile_info" => current_user}}
+			profiile_data = current_user.as_json
+			profiile_data["career"] = current_user.career.name
+			format.json{ render json: {"status" => "Success", "profile_info" => profiile_data}}
+		end
+	end
+
+	def get_careers
+		respond_to do |format|
+			format.json{ render json: {"status" => "Success", "careers" => Career.all}}
+		end
+	end
+
+	def get_prizes
+		respond_to do |format|
+			format.json{ render json: {"status" => "Success", "prizes" => Prize.all}}
+		end
+	end
+
+	def add_prize
+		prize = JSON.parse params['id']
+		amount = JSON.parse params['amount']
+		if amount <= current_user.accumulated_score
+			if Prize.find_by_id(prize).available
+				if UserPrize.exists?(user_id: current_user.id, prize_id: prize)
+					user_prize = UserPrize.find_by(user_id: current_user.id, prize_id: prize.id)
+					user_prize.update(amount: user_prize.amount + amount)
+				else
+					UserPrize.create(user_id: current_user.id, prize_id: prize, amount: amount)
+				end
+				current_user.update(accumulated_score: current_user.accumulated_score - amount)
+			end
+			respond_to do |format|
+				format.json{ render json: {"status" => "Success"}}
+			end
+		else
+			respond_to do |format|
+				format.json{ render json: {"status" => "Not enough score"}}
+			end
 		end
 	end
 
@@ -67,7 +104,7 @@ class AppCallsController < ApplicationController
 				survey = res.multiple_alternative.multiple_question.survey
 			end
 		end
-
+		current_user.update(accumulated_score: current_user.accumulated_score + survey.score)
 		SurveyState.find_by(user_id: current_user.id, survey_id: survey.id).update(state: "Answered")
 
 

@@ -6,4 +6,5 @@ class Survey < ApplicationRecord
   	has_many :open_questions
   	has_many :alternative_questions
   	has_many :multiple_questions
+  	has_one :filter
 end

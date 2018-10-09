@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_08_015007) do
+ActiveRecord::Schema.define(version: 2018_10_09_194248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,18 +48,16 @@ ActiveRecord::Schema.define(version: 2018_10_08_015007) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.boolean "subscribable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "group_categories", force: :cascade do |t|
-    t.bigint "group_id"
-    t.bigint "category_id"
+  create_table "filters", force: :cascade do |t|
+    t.bigint "survey_id"
+    t.text "query"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category_id"], name: "index_group_categories_on_category_id"
-    t.index ["group_id"], name: "index_group_categories_on_group_id"
+    t.index ["survey_id"], name: "index_filters_on_survey_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -114,7 +112,6 @@ ActiveRecord::Schema.define(version: 2018_10_08_015007) do
   create_table "prizes", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "score"
     t.boolean "available"
     t.datetime "start_date"
     t.datetime "end_date"
@@ -183,6 +180,7 @@ ActiveRecord::Schema.define(version: 2018_10_08_015007) do
   create_table "user_prizes", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "prize_id"
+    t.integer "amount", default: 0
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -203,8 +201,8 @@ ActiveRecord::Schema.define(version: 2018_10_08_015007) do
     t.datetime "birthdate"
     t.string "gender"
     t.string "rut"
-    t.boolean "active"
-    t.integer "accumulated_score"
+    t.boolean "active", default: false
+    t.integer "accumulated_score", default: 0
     t.bigint "career_id"
     t.string "auth_token"
     t.index ["career_id"], name: "index_users_on_career_id"
@@ -216,8 +214,7 @@ ActiveRecord::Schema.define(version: 2018_10_08_015007) do
   add_foreign_key "alternative_responses", "alternatives"
   add_foreign_key "alternative_responses", "users"
   add_foreign_key "alternatives", "alternative_questions"
-  add_foreign_key "group_categories", "categories"
-  add_foreign_key "group_categories", "groups"
+  add_foreign_key "filters", "surveys"
   add_foreign_key "multiple_alternatives", "multiple_questions"
   add_foreign_key "multiple_questions", "surveys"
   add_foreign_key "multiple_responses", "multiple_alternatives"
