@@ -7,6 +7,6 @@ class CreateSurveyStates < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :survey_states, [:user, :survey], :unique => true
+    add_index :survey_states, [:user_id, :survey_id], :unique => true
   end
 end
