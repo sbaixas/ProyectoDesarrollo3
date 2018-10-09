@@ -1,6 +1,7 @@
 class AppCallsController < ApplicationController
 	
-	surveys_data = {name:"Encuesta Generica", description:"Texto que describe de manera detallada la encuesta generica, deberia ser mas o menos largo.", score: 120, start_date: DateTime.new(2018,10,5), end_date: DateTime.new(2018,10,20), max_answers: 100, min_answers: 15}
+	before_action :authenticate_token
+    skip_before_action :verify_authenticity_token
 
 	def get_surveys
 		respond_to do |format|
