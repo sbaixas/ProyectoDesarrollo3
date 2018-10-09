@@ -13,11 +13,11 @@ categories_data = [{name:"musica"},
 
 categories = Category.create(categories)
 
-groups_data = [{name: "Grupo Generico 1"},
-		  {name: "Grupo Generico 2"},
-		  {name: "Grupo Generico 3"}]
+groups_data = [{tag: "Grupo Generico 1"},
+		  {tag: "Grupo Generico 2"},
+		  {tag: "Grupo Generico 3"}]
 
-groups = Group.create(group)
+groups = Group.create(groups_data)
 
 careers = [{name:"Ingenieria Civil"},
               {name:"Enfermeria"},
