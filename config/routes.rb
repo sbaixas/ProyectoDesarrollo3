@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post "/users/confirmations", :to => "users/confirmations#activate",   :as => 'activate_user'
   end
   get 'app_calls/get_surveys'
+  get 'app_calls/get_profile_info'
   post "/interest_categories/edit", :to =>"interest_categories#update", as:'edit_interest_categories'
   get "/interest_categories/", :to =>"interest_categories#show", as:'show_interest_categories'
 

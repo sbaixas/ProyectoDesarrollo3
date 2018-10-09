@@ -36,4 +36,10 @@ class AppCallsController < ApplicationController
 	    end
 	end
 
+	def get_profile_info
+		respond_to do |format|
+			format.json{ render json: {"status" => "Success", "profile_info" => current_user}}
+		end
+	end
+
 end
