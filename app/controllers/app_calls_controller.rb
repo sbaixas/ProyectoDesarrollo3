@@ -72,7 +72,7 @@ class AppCallsController < ApplicationController
 		respond_to do |format|
 
 
-			format.json{ render json: {"status" => "Success","prizes" => Prize.where(available: true).collect{|p| Hash({price_id:p.id, name:p.name, description:p.description,end_date:p.end_date,is_available: p.available,selected:if !p.users.include?@current_user then true else false end})}}}
+			format.json{ render json: {"status" => "Success","prizes" => Prize.where("available =true AND end_date>CURRENT_TIMESTAMP").collect{|p| Hash({price_id:p.id, name:p.name, description:p.description,end_date:p.end_date,is_available: p.available,selected:if p.users.include? @current_user then true else false end})}}}
 
 		end
 	end
@@ -81,15 +81,17 @@ class AppCallsController < ApplicationController
 		respond_to do |format|
 			format.json{ 
 				prize = params[:id]
+				available_prizes_ids = Prize.where(available:true).collect{|s| s.id}
 				if Prize.find_by_id(prize).available?
-					if UserPrize.exists?(user_id: current_user.id)
-						user_prize = UserPrize.find_by(user_id: current_user.id)
-						user_prize.update(prize_id: prize)
-					else
-						UserPrize.create(user_id: current_user.id, prize_id: prize)
+					selected = UserPrize.where(user_id: @current_user.id,prize_id:available_prizes_ids)
+					if !selected.empty?
+						selected.delete_all
 					end
+					UserPrize.create(user_id: @current_user.id, prize_id: prize)
+					puts "created"
 					render json: {"status" => "Success"}
 				else
+					puts "else"
 					render json: {"status" => "Prize Unavailable"}
 				end
 				

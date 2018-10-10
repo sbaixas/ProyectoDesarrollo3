@@ -182,7 +182,6 @@ ActiveRecord::Schema.define(version: 2018_10_10_065801) do
   create_table "user_prizes", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "prize_id"
-    t.integer "amount", default: 0
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

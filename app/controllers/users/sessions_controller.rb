@@ -26,7 +26,7 @@ class Users::SessionsController < Devise::SessionsController
       firebase_token = params[:firebase_token]
       user=User.find_by_email(user_email)
       if(!user)
-        render :json => {status:401},status: :unauthorized
+        render :json => {status:401, message:"credenciales inválidas"}, status: :ok
       elsif user.valid_password?(password)
         user.update(firebase_token:firebase_token)
         render :json =>{Authorization:user.auth_token,status:200}, status: :ok

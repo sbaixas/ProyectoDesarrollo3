@@ -58,7 +58,10 @@ multiple12 = MultipleAlternative.create(multiple_question: multiple_question1, c
 multiple13 = MultipleAlternative.create(multiple_question: multiple_question1, content: "Contenido en texto de la alternativa 3.")
 multiple14 = MultipleAlternative.create(multiple_question: multiple_question1, content: "Contenido en texto de la alternativa 4.")
 
-prize = Prize.create(name:"Premio", description:"Premio generico por sorteo, descripcion relativamente larga", available: true, start_date: DateTime.new(2018,10,7), end_date: DateTime.new(2018,10,9))
-UserPrize.create(user: users[0],prize: prize)
+prize = Prize.create(name:"2 Entradas Cimemark", description:"", available: true, start_date: DateTime.new(2018,10,7), end_date: DateTime.new(2018,10,15))
+prize = Prize.create(name:"Iphone X", description:"te aumentará el ego", available: true, start_date: DateTime.new(2018,10,7), end_date: DateTime.new(2018,10,15))
+
+prize = Prize.create(name:"Lavadora automática", description:"anda a laar", available: true, start_date: DateTime.new(2018,10,7), end_date: DateTime.new(2018,10,15))
+
 #SurveyState.create(user: users[0], survey: survey1, state: 'Not Delivered')
 Filter.create(survey: survey1, query: "users.gender = 'male' AND categories.name = 'musica'")
