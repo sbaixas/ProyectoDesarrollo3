@@ -30,8 +30,8 @@ Career.create(careers)
 
 users_data = [{email:"sbaixas@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Sebastian", last_name:"Baixas", birthdate: DateTime.new(1991,8,27), rut:"180182535", gender: "male", active: true, accumulated_score: 120, career_id: 1},
 			  {email:"adaldunate@miuandes.cl", password:"123456", password_confirmation:"123456", first_name:"Angeles", last_name:"Aldunate", birthdate: DateTime.new(1993,11,29), rut:"186370430", gender: "female", active: false, accumulated_score: 0, career_id: 1},
-			  {email:"jafernandez1@miuandes.cl", active: false, accumulated_score: 0, career_id: 1},
-			{email:"jvejar1@miuandes.cl", active: false, accumulated_score: 0, career_id: 1}]
+			  {email:"jafernandez1@miuandes.cl", password:"123456", password_confirmation:"123456",active: false, accumulated_score: 0, career_id: 1},
+			{email:"jvejar1@miuandes.cl", password:"123456", password_confirmation:"123456",active: false, accumulated_score: 0, career_id: 1}]
 
 users = User.create(users_data)
 
