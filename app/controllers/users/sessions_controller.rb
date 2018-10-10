@@ -23,10 +23,12 @@ class Users::SessionsController < Devise::SessionsController
     format.json {
       user_email=params[:email]
       password=params[:password]
+      firebase_token = params[:firebase_token]
       user=User.find_by_email(user_email)
       if(!user)
         render :json => {status:401},status: :unauthorized
       elsif user.valid_password?(password)
+        user.update(firebase_token:firebase_token)
         render :json =>{Authorization:user.auth_token,status:200}, status: :ok
       else
         render :json =>{status:401}, status: :unauthorized

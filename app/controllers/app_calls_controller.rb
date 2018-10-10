@@ -1,5 +1,5 @@
 class AppCallsController < ApplicationController
-	
+	require 'date'
 	before_action :authenticate_token
     skip_before_action :verify_authenticity_token
 
@@ -47,15 +47,54 @@ class AppCallsController < ApplicationController
 		end
 	end
 
+	def update_profile_info
+		sleep(4)
+		user_info = params[:user].permit(:first_name,:last_name,:gender,:birthdate,:rut)
+		if current_user.update(user_info)
+			render json:{status:200},status: :ok
+		else
+			render json:{status:202,message:"parametros invalidos"}, status: :accepted
+
+		end
+
+	end
 	def get_careers
 		respond_to do |format|
 			format.json{ render json: {"status" => "Success", "careers" => Career.all}}
 		end
 	end
 
+	def update_prize_postulation
+		prize_id = params[:prize_id]
+		prize = Prize.find_by(id:prize_id)
+		if prize.nil?
+			render json:{message:"Sorteo Inexistente",status:202},status:202
+			return
+		end
+		open_prize_ids = Prize.where("end_date> CURRENT_TIMESTAMP").collect{|p| p.id}
+		current_time = DateTime.now.to_time.utc
+		puts current_time.utc
+		puts prize.end_date.utc
+		if prize.end_date.utc>current_time.utc
+			#is available
+			print open_prize_ids
+			UserPrize.where(prize_id:open_prize_ids,user:@current_user).delete_all
+			UserPrize.create(user:@current_user,prize:prize)
+			render json:{message:"Sorteo Inexistente",status:200},status:200
+			return
+		else
+			render json:{message:"Sorteo Cerrado",status:202},status:202
+			return
+	#		render :json=>{message:"Encuesta cerrada",status:202}
+		end
+	end
+
 	def get_prizes
 		respond_to do |format|
-			format.json{ render json: {"status" => "Success", "prizes" => Prize.all}}
+			format.json{ render json: {"status" => "Success",
+																 "prizes" => Prize.where('end_date>CURRENT_TIMESTAMP').collect{|p|.}
+
+			}}
 		end
 	end
 

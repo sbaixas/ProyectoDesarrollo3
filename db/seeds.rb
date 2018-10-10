@@ -6,7 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'date'
-
+require 'firebase_cloud_messenger'
+fcm = FirebaseCloudMessenger.new()
+fcm.notify_new_survey(User.all)
 categories_data = [{name:"musica"}, 
               {name:"arte"},
               {name:"moda"}]
@@ -49,7 +51,7 @@ multiple12 = MultipleAlternative.create(multiple_question: multiple_question1, c
 multiple13 = MultipleAlternative.create(multiple_question: multiple_question1, content: "Contenido en texto de la alternativa 3.")
 multiple14 = MultipleAlternative.create(multiple_question: multiple_question1, content: "Contenido en texto de la alternativa 4.")
 
-Prize.create(name:"Premio", description:"Premio generico por sorteo, descripcion relativamente larga", available: true, start_date: DateTime.new(2018,10,8), end_date: DateTime.new(2018,11,11))
+Prize.create(name:"Premio", description:"Premio generico por sorteo, descripcion relativamente larga", available: true, start_date: DateTime.new(2018,10,8), end_date: DateTime.new(2018,11,15))
 
 
 SurveyState.create(user: users[0], survey: survey1, state: 'Not Delivered')

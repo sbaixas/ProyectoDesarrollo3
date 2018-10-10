@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_194248) do
+ActiveRecord::Schema.define(version: 2018_10_10_065801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 2018_10_09_194248) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_prizes_on_user_id"
   end
 
   create_table "survey_categories", force: :cascade do |t|
@@ -205,6 +207,7 @@ ActiveRecord::Schema.define(version: 2018_10_09_194248) do
     t.integer "accumulated_score", default: 0
     t.bigint "career_id"
     t.string "auth_token"
+    t.string "firebase_token"
     t.index ["career_id"], name: "index_users_on_career_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -222,6 +225,7 @@ ActiveRecord::Schema.define(version: 2018_10_09_194248) do
   add_foreign_key "open_questions", "surveys"
   add_foreign_key "open_responses", "open_questions"
   add_foreign_key "open_responses", "users"
+  add_foreign_key "prizes", "users"
   add_foreign_key "survey_categories", "categories"
   add_foreign_key "survey_categories", "surveys"
   add_foreign_key "survey_states", "surveys"

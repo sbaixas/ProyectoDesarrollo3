@@ -8,8 +8,11 @@ Rails.application.routes.draw do
   end
   get 'app_calls/get_surveys'
   get 'app_calls/get_profile_info'
+  post 'app_calls/update_profile_info'
   get 'app_calls/get_careers'
   get 'app_calls/get_prizes'
+
+  post 'app_calls/update_prize_postulation'
   post 'app_calls/add_prize'
   post 'app_calls/post_survey'
   post "/interest_categories/edit", :to =>"interest_categories#update", as:'edit_interest_categories'
