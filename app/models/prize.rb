@@ -1,6 +1,7 @@
 class Prize < ApplicationRecord
   	has_many :user_prizes
   	has_many :users, :through => :user_prizes, source: :user
+  	belongs_to :user, optional: true
 
   	def is_available
 			self_user = User.find_by(id:self.user_id)
@@ -37,7 +38,7 @@ class Prize < ApplicationRecord
   			self.user = winner
   			self.user.update(accumulated_score: 0)
   			self.save
-				UserMailer.with(user:winner,prize:self).winner_mail.deliver_now
+			UserMailer.with(user:winner,prize:self).winner_mail.deliver_now
   		end
   	end
 end

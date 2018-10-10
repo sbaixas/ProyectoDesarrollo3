@@ -31,9 +31,9 @@ class Survey < ApplicationRecord
   		if DateTime.now > self.end_date or DateTime.now < self.start_date
   			return false
   		end
-  		ans = SurveyState.find_by_id_and_state(self.id, "Answered")
+  		ans = SurveyState.where(survey_id: self.id, state:"Answered")
   		if ans != nil
-  			if ans.length >= self.max_answers 
+  			if ans.count >= self.max_answers 
   				return false
   			end
   		end
