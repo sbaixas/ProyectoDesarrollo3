@@ -21,6 +21,6 @@
 every :minute do
     rake "surveys:link_users"
 end
-every :hour do
+every :minute do
 	rake "surveys:refresh_time"
 end
