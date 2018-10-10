@@ -126,7 +126,6 @@ class AppCallsController < ApplicationController
 						ar_array.push(AlternativeResponse.new(user_id:current_user.id, alternative_id:ares))
 						if survey == nil
 							survey = ar_array[-1].alternative.alternative_question.survey
-							res.save
 						else
 							unless survey.id == ar_array[-1].alternative.alternative_question.survey.id
 								alt_ok = false

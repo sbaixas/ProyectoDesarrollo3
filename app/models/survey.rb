@@ -20,7 +20,9 @@ class Survey < ApplicationRecord
 	  		end
 	  		data_array = ActiveRecord::Base.connection.execute(sql).values.map{|row| {user_id:row[0], survey_id:self.id, state:'Not Delivered'}}
 	  		data_array.each do |da|
-	  			SurveyState.find_or_create_by(da)
+	  			unless SurveyState.exists?(user_id:da[:user_id],survey_id:da[:survey_id])
+	  				SurveyState.find_or_create_by(da)
+	  			end
 	  		end
   		end
   	end
