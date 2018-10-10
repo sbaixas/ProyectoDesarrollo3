@@ -9,11 +9,16 @@ class FirebaseCloudMessenger
 
   #this receive an Active Record Relation of Users
   def notify_new_survey(users)
-    registration_ids=  users.collect{|u| u.firebase_token}# an array of one or more client registration tokens
+    registration_ids=  users.where(firebase_token: !nil?).collect{|u| u.firebase_token}# an array of one or more client registration tokens
     options = {data: {subject:"Survey", message: "Hay nuevas encuestas disponibles"}, collapse_key: "updated_score"}
     response = @fcm.send(registration_ids, options)
   end
 
+  def notify_new_survey_one_user(user)
+    registration_ids= [user.firebase_token]
+    options = {data: {subject:"Survey", message: "Hay nuevas encuestas disponibles"}, collapse_key: "updated_score"}
+    response = @fcm.send(registration_ids, options)
+  end
   #send notification to all users in the platform
   def notify_new_raffle()
     registration_ids=  User.where.not(firebase_token: !nil).collect{|u| u.firebase_token}# an array of one or more client registration tokens

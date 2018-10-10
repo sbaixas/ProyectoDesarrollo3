@@ -12,4 +12,10 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Activation Successfully')
 
   end
+
+  def winner_mail
+    @user = params[:user]
+    @prize = params[:prize]
+    mail(to: @user.email, subject: 'Prize Winner!')
+  end
 end
