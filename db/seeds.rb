@@ -47,8 +47,8 @@ UserGroup.create(user:users[2], group:groups[2])
 
 
 
-UserCategory.create(user:users[0], category: categories[4])
-UserCategory.create(user:users[2], category: categories[4])
+UserCategory.create(user:users[0], category: categories[3])
+UserCategory.create(user:users[2], category: categories[3])
 
 
 surveys_data = {name:"Encuesta Generica", description:"Texto que describe de manera detallada la encuesta generica max 30 caracteres.", score: 120, start_date: DateTime.new(2018,10,8), end_date: DateTime.new(2018,10,20), max_answers: 100, min_answers: 15}
