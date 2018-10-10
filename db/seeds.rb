@@ -59,5 +59,5 @@ multiple14 = MultipleAlternative.create(multiple_question: multiple_question1, c
 Prize.create(name:"Premio", description:"Premio generico por sorteo, descripcion relativamente larga", available: true, start_date: DateTime.new(2018,10,8), end_date: DateTime.new(2018,11,11))
 
 
-SurveyState.create(user: users[0], survey: survey1, state: 'Not Delivered')
+#SurveyState.create(user: users[0], survey: survey1, state: 'Not Delivered')
 Filter.create(survey: survey1, query: "users.gender = 'male' AND categories.name = 'musica'")

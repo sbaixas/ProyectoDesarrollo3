@@ -77,12 +77,10 @@ class AppCallsController < ApplicationController
 						current_user.update(accumulated_score: current_user.accumulated_score - amount)
 					end
 					render json: {"status" => "Success"}
-				}
-			end
-		else
-			respond_to do |format|
-				format.json{ render json: {"status" => "Not enough score"}}
-			end
+				else
+					render json: {"status" => "Not enough score"}
+				end
+			}
 		end
 	end
 
