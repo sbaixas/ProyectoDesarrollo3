@@ -8,7 +8,7 @@ namespace :surveys do
   task :refresh_time => :environment do
   	Survey.all.each do |sur|
   		if sur.available == false
-  			SurveyState.find(survey:sur).each do |surst|
+  			SurveyState.where(survey_id:sur.id).each do |surst|
   				surst.update(state: 'Unavailable')
   			end
   		end
