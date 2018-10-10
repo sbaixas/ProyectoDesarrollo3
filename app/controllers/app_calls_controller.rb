@@ -50,7 +50,7 @@ class AppCallsController < ApplicationController
 	end
 
 	def update_profile_info
-		sleep(4)
+
 		user_info = params[:user].permit(:first_name,:last_name,:gender,:birthdate,:rut)
 		if current_user.update(user_info)
 			render json:{status:200},status: :ok

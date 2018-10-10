@@ -3,6 +3,7 @@ class Prize < ApplicationRecord
   	has_many :users, :through => :user_prizes, source: :user
   	belongs_to :user
 
+
   	def is_available
   		if DateTime.now > self.end_date or DateTime.now < self.start_date
   			if DateTime.now > self.end_date and self.user == nil
@@ -14,7 +15,11 @@ class Prize < ApplicationRecord
   			self.update(available: true)
   			return true
   		end
-  	end
+
+		end
+
+
+
   	def set_winner
   		users_array = []
   		count = 0
@@ -33,6 +38,7 @@ class Prize < ApplicationRecord
   			self.user = winner
   			self.user.update(accumulated_score: 0)
   			self.save
+				UserMailer.with(user:self.user,prize:self).winner_mail.deliver_now
   		end
   	end
 end
