@@ -66,35 +66,13 @@ class AppCallsController < ApplicationController
 		end
 	end
 
-	def update_prize_postulation
-		prize_id = params[:prize_id]
-		prize = Prize.find_by(id:prize_id)
-		if prize.nil?
-			render json:{message:"Sorteo Inexistente",status:202},status:202
-			return
-		end
-		open_prize_ids = Prize.where("end_date> CURRENT_TIMESTAMP").collect{|p| p.id}
-		current_time = DateTime.now.to_time.utc
-		puts current_time.utc
-		puts prize.end_date.utc
-		if prize.end_date.utc>current_time.utc
-			#is available
-			print open_prize_ids
-			UserPrize.where(prize_id:open_prize_ids,user:@current_user).delete_all
-			UserPrize.create(user:@current_user,prize:prize)
-			render json:{message:"Sorteo Inexistente",status:200},status:200
-			return
-		else
-			render json:{message:"Sorteo Cerrado",status:202},status:202
-			return
-	#		render :json=>{message:"Encuesta cerrada",status:202}
-		end
-	end
+
 
 	def get_prizes
 		respond_to do |format|
 
-			format.json{ render json: {"status" => "Success", "prizes" => Prize.find(avaiable: true)}}
+
+			format.json{ render json: {"status" => "Success","prizes" => Prize.where(available: true).collect{|p| Hash({price_id:p.id, name:p.name, description:p.description,end_date:p.end_date,is_available: p.available,selected:if !p.users.include?@current_user then true else false end})}}}
 
 		end
 	end
@@ -103,7 +81,7 @@ class AppCallsController < ApplicationController
 		respond_to do |format|
 			format.json{ 
 				prize = params[:id]
-				if Prize.find_by_id(prize).is_avaiable
+				if Prize.find_by_id(prize).available?
 					if UserPrize.exists?(user_id: current_user.id)
 						user_prize = UserPrize.find_by(user_id: current_user.id)
 						user_prize.update(prize_id: prize)
