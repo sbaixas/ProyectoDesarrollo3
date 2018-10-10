@@ -3,7 +3,6 @@ class CreateUserPrizes < ActiveRecord::Migration[5.2]
     create_table :user_prizes do |t|
       t.references :user, foreign_key: true
       t.references :prize, foreign_key: true
-      t.integer :amount, default: 0
       t.string :code
 
       t.timestamps
